@@ -1,0 +1,95 @@
+body.m8 {
+	background-color: #EFEFE5;
+	color: #444;
+	padding-top: 25px;
+}
+
+div.grandprix {
+	border: 1px solid #222;
+	padding: 7px;
+	border-radius: 2px;
+
+	-moz-box-shadow: 7px 7px 3px #999;
+	-webkit-box-shadow: 7px 7px 3px #999;
+	box-shadow: 7px 7px 3px #999;
+	
+	margin-bottom: 20px;
+
+	background-color: #fff;
+}
+
+h1.header {
+	font-family: 'Advent Pro', sans-serif;
+	font-size: 72px;
+	margin-bottom: 30px;
+	color: #222;
+}
+
+button.pick {
+	margin-top: 3px;
+}
+
+div.tournaments {
+	/*margin-left: 0px;*/
+}
+
+ul.myteams {
+	list-style-type: none;
+	margin-left: 0px;
+}
+
+ul.myteams .teamname {
+	font-weight: bold;
+}
+
+ul.myleagues {
+	list-style-type: none;
+	margin-left: 0px;
+}
+div.grandprix .name {
+	font-weight: bold;
+}
+
+div.grandprix .date {
+	color: #f0f;	
+	
+}
+
+div.grandprix .format {
+	color: #00f;	
+	
+}
+
+div.grandprix .timeleft {
+	color: #bbb;	
+	font-size: 11px;
+	margin-top: -3px;
+}
+
+div.nav-actions {
+	height: 100%;
+}
+
+@media (max-width: 480px) { 
+	h1.header {
+		font-family: 'Advent Pro', sans-serif;
+		font-size: 55px;
+		margin-bottom: 15px;
+	}
+
+	body.m8 {
+		background-color: #efefef;
+		color: #444;
+		padding-top: 10px;
+	}
+}
+
+@media (max-width: 767px) { 
+	div.text-right.nav-actions {
+		text-align: left;
+	}
+
+	h1.header {
+		margin-bottom: 25px;
+	}
+}
