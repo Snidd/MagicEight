@@ -1,0 +1,30 @@
+<template name="tournaments">
+  <div class="row">
+  	<div class="span3 text-right nav-actions">
+  		{{#if loggedIn}}
+  		<p><a href="/change">Change my information</a></p>
+  		<p><a href="/create">Create a league</a></p>
+  		{{else}}
+  			{{> loginnav}}
+  		{{/if}}
+  	</div>
+  	<div class="span9 tournaments">
+  		
+  		{{#each tournamentRows}}
+  			<div class="row">
+  				{{#each tournaments}}
+		      	<div class="span4 tourney {{type}}">
+		      		<div class="row">
+		      			<div class="span2 name"><img src="blank.gif" class="flag flag-{{country}}" alt="{{country}}" /> {{name}}</div>
+		      			<div class="span2 date">{{tournamentdate startDate endDate}} <span class="format">{{nobreak format}}</span></div>
+		      		</div>        		
+		      		<div class="row">
+		      			<div class="span2 timeleft">({{timeleft startDate}})</div>        			
+		      		</div>
+		      	</div>
+		      {{/each}}
+	    	</div>
+  		{{/each}}
+		</div>
+  </div>
+</template>
