@@ -4,27 +4,32 @@
       <div class="span3 text-right nav-actions">
         {{> loginnav}}
       </div>
-      <div class="span4 tournaments">
+      <div class="span5">
         <div class="row">
-          <div class="span4">
+          <div class="span5">
             <form id="signupform">
           <fieldset>
             <legend class="signup">Create an account</legend>
             <div class="control-group username ok">
               <div class="controls">
-                <input class="span3 username" type="text" placeholder="Username">
+                <input class="span4 username" type="text" placeholder="Username">
                 <span class="help-inline username">Username is already taken</span>
               </div>
             </div>
 
             <div class="control-group email ok">
               <div class="controls">
-                <input class="span3 email" type="text" placeholder="Email">
+                <input class="span4 email" type="text" placeholder="Email">
                 <span class="help-inline email">Invalid email</span>
               </div>
             </div>
             
-            <input class="span3 password" type="password" placeholder="Password">
+            <div class="control-group password ok">
+              <div class="controls">
+                <input class="span4 password" type="password" placeholder="Password">
+                <span class="help-inline password"></span>
+              </div>
+            </div>
 
             <button type="submit" id="submitbtn" class="btn btn-primary">Create account</button>
           </fieldset>

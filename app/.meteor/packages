@@ -9,4 +9,7 @@ preserve-inputs
 coffeescript
 less
 bootstrap
+HTML5-History-API
 router
+accounts-password
+

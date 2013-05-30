@@ -15,3 +15,13 @@ Template.tournaments.helpers
 				count = 0
 				i++
 		return rows
+	loggedIn: ->
+		isLoggedIn()
+	showPick: (t) ->
+		if not isLoggedIn() then return false
+		if t.finished then return false
+		true
+
+Template.tournaments.events
+	'click button.pick' : (event, template) ->
+		console.log "Clicked: #{this._id}"

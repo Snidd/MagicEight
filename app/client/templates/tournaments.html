@@ -2,8 +2,8 @@
   <div class="row">
   	<div class="span3 text-right nav-actions">
   		{{#if loggedIn}}
-  		<p><a href="/change">Change my information</a></p>
-  		<p><a href="/create">Create a league</a></p>
+  			<p><a href="/create">Create a league</a></p>
+  			{{> usernav}}
   		{{else}}
   			{{> loginnav}}
   		{{/if}}
@@ -15,12 +15,17 @@
   				{{#each tournaments}}
 		      	<div class="span4 tourney {{type}}">
 		      		<div class="row">
-		      			<div class="span2 name"><img src="blank.gif" class="flag flag-{{country}}" alt="{{country}}" /> {{name}}</div>
+		      			<div class="span2 name"><img src="/img/blank.png" class="flag flag-{{country}}" alt="{{country}}" /> {{name}}</div>
 		      			<div class="span2 date">{{tournamentdate startDate endDate}} <span class="format">{{nobreak format}}</span></div>
 		      		</div>        		
 		      		<div class="row">
 		      			<div class="span2 timeleft">({{timeleft startDate}})</div>        			
 		      		</div>
+		      		{{#if showPick this}}
+			      		<div class="row">
+			        			<div class="span4"><button class="btn pick btn-mini btn-primary" type="button">Pick my top 8!</button></div>        			
+			        	</div>
+			        {{/if}}
 		      	</div>
 		      {{/each}}
 	    	</div>
