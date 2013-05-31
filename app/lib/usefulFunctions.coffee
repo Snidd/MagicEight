@@ -5,3 +5,5 @@
 @isLoggedIn = ->
 	if Meteor.user() is null then return false
 	return true
+
+@delay = (ms, func) -> setTimeout func, ms

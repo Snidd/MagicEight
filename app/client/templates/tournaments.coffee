@@ -25,3 +25,4 @@ Template.tournaments.helpers
 Template.tournaments.events
 	'click button.pick' : (event, template) ->
 		console.log "Clicked: #{this._id}"
+		Meteor.Router.to("/top8/#{this._id}");

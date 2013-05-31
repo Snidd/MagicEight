@@ -8,10 +8,35 @@ a.link {
 	cursor: pointer;
 }
 
+input.replaceButton {
+	
+	width: 130px;
+
+
+	&.dontshow {
+		display: none;
+	}
+}
+
+button.dontshow {
+	display: none;
+}
+
+
+
 #loginModal {
 	width: 300px;
+	form {
+		margin-bottom: 0px;
+	}
 	.modal-header {
 		text-align: left;
+	}
+
+	.alert {
+		text-align: left;
+		margin-bottom: 0px;
+		margin-top: 10px;
 	}
 
 	.modal-body {
@@ -81,6 +106,20 @@ h1.header {
 	color: #222;
 }
 
+h3.title {
+	
+	font-size: 22px;
+	margin-top: -12px;
+	margin-bottom: 5px;
+	color: #222;
+}
+
+h4.subtitle {
+	margin-top: 0px;
+	margin-bottom: 10px;
+}
+
+
 button.pick {
 	margin-top: 3px;
 }
@@ -109,7 +148,8 @@ div.tourney {
 	}	
 
 	.date {
-		color: #f0f;	
+		color: #222;	
+		font-style: italic;
 	}
 
 	.format {
