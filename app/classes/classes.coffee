@@ -9,3 +9,9 @@ class @Team
 			6: { name: "", position: 6 }
 			7: { name: "", position: 7 }
 			8: { name: "", position: 8 }
+		@leagues = []
+
+class @League
+	constructor: (@name, @password, @ownerId) ->
+		@tournaments = []
+		@members = []

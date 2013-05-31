@@ -25,30 +25,49 @@
 			</div>
 		</div>
 		{{else}}
+		<div class="row">
 			{{#each pickRows}}
-			<div class="row">
+			
 				{{#each picks}}
-    			<div class="span3">
-					<div class="input-prepend">
-						 {{#isolate}}
-						{{#if currentEditing position}}
-							<button class="btn addPick id-{{position}}" type="button"><i class="icon-ok"></i></button>
-							<input type="text" class="replaceButton id-{{position}}" type="text" placeholder="Name of player" value="{{name}}"/>
-						{{else}}
-							<span class="add-on">{{position}}.</span>						
-							<button class="btn selectPlayer id-{{position}} {{addButtonClass this}}" type="button">{{addButtonText this}}</button>
-							<input type="hidden" class="id-{{position}} hiddenname" value="{{name}}"/>
-						{{/if}}	
-						{{/isolate}}					
-					</div>
-				</div>
+    				{{> top8pick this}}
 				{{/each}}
-			</div>
+			
 			{{/each}}
-			<div class="row">
-				<div class="span3"><button class="btn saveteam btn-primary">Save</button></div>
 			</div>
+			<div class="row">
+				<div class="span3">
+					<button class="btn saveteam {{#if saving}}disabled{{/if}} btn-primary">{{#if saving}}Saving...{{else}}Save{{/if}}</button>
+				</div>
+
+			</div>
+			{{#if wasError}}
+			<div class="row">
+				<div class="span5">
+					<div class="alert alert-error">
+					  <button type="button" class="close" data-dismiss="alert">&times;</button>
+					  <strong>Error!</strong> <span id="errorMessage">{{errorMessage}}</span>
+					</div>
+				</div>				
+			</div>
+			{{/if}}
 		{{/if}}
 	</div>
   </div>
+</template>
+
+<template name="top8pick">
+	<div class="span6">
+		<div class="input-prepend">
+		{{#isolate}}
+			{{#if currentEditing position}}
+				<button class="btn addPick id-{{position}}" type="button"><i class="icon-ok"></i></button>
+				<input type="text" class="replaceButton playerName id-{{position}}" type="text" placeholder="Name of player" value="{{name}}"/>
+			{{else}}
+				<span class="add-on">{{position}}.</span>						
+				<a class="btn playerName id-{{position}} {{addButtonClass this}}" type="button">{{addButtonText this}}</a>				
+			{{/if}}	
+			<input type="hidden" class="id-{{position}} hiddenname" value="{{name}}"/>
+		{{/isolate}}					
+		</div>
+	</div>
 </template>

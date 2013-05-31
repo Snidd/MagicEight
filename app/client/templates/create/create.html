@@ -1,0 +1,31 @@
+<template name="create">
+  <div class="row">
+    <div class="span3 text-right nav-actions">
+      <p><a href="/tournaments">Tournaments</a></p>
+      {{> usernav}}
+    </div>
+    <div class="span9 create">
+      <div class="row">
+         <div class="span5">
+            <form id="createLeagueForm" class="m8form">
+          <fieldset>
+            <legend class="signup">Create a league</legend>
+            <div class="control-group leaguename ok">
+              <div class="controls">
+                <input class="span4 leaguename" type="text" placeholder="League name">
+                <span class="help-inline leaguename">League name is already taken</span>
+              </div>
+            </div>
+
+            <input class="span4 password" type="password" placeholder="Password">                
+
+            <div class="password description">If you don't enter a password, the league will be public</div>
+
+            <button type="submit" id="submitbtn" class="btn btn-primary">Create league</button>
+          </fieldset>
+        </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</template>

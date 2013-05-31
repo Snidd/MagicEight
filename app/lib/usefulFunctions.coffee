@@ -7,3 +7,17 @@
 	return true
 
 @delay = (ms, func) -> setTimeout func, ms
+
+@getCurrentTeam = ->
+	getTeam(Meteor.userId(), Session.get("currentTourneyId"))	
+
+@getTeam = (userId, tourneyId) ->
+	Teams.findOne
+		owner: userId
+		tourneyId: tourneyId
+
+@getTeamCount = (userId, tourneyId) ->
+	Teams.find({ owner: userId, tourneyId: tourneyId }).count()
+
+@getCurrentTeamCount = ->
+	getTeamCount(Meteor.userId(), Session.get("currentTourneyId"))

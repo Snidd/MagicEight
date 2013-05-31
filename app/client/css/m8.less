@@ -24,6 +24,7 @@ button.dontshow {
 
 
 
+
 #loginModal {
 	width: 300px;
 	form {
@@ -72,9 +73,15 @@ legend.signup {
 	line-height: 15px;
 }
 
-#signupform {
+form.m8form {
 	margin-top: 0px;
+
+	.description {
+		margin-bottom: 12px;
+		font-style: italic;
+	}
 }
+
 div.control-group
 {
 	legend + &.ok {
@@ -142,6 +149,10 @@ ul.myleagues {
 	margin-left: 0px;
 }
 
+button.saveteam {
+	margin-bottom: 15px;
+}
+
 div.tourney {
 	.name {
 		font-weight: bold;
@@ -168,6 +179,10 @@ div.nav-actions {
 	height: 100%;
 }
 
+ul.myteams {
+	margin-bottom: 0px;
+}
+
 @media (max-width: 480px) { 
 	h1.header {
 		font-family: 'Advent Pro', sans-serif;
@@ -180,6 +195,18 @@ div.nav-actions {
 		color: #444;
 		padding-top: 10px;
 	}
+}
+
+@media (min-width: 390px) {
+	.input-prepend {
+		.playerName {
+			width: 280px;
+		}
+		input.playerName {
+			text-align: center;
+		}
+	}
+
 }
 
 @media (max-width: 767px) { 

@@ -26,6 +26,25 @@
 			        			<div class="span4"><button class="btn pick btn-mini btn-primary" type="button">Pick my top 8!</button></div>        			
 			        	</div>
 			        {{/if}}
+			        {{#if hasTeam this}}
+						<div class="row">
+							<div class="span4">
+								<ul class="myteams">
+									{{#with myTeam this}}
+		        					<li><a class="link teamname">{{name}}</a> {{leagueDescription}}</li>
+		        					<ul class="myleagues">
+		        						{{#each leagues}}
+		        						<li><a href="#">Jockes liga</a></li>
+		        						{{/each}}
+		        						<li>
+		        							<button class="btn findleagues btn-mini" type="button">Find leagues</button>
+		        						</li>
+		        					</ul>
+		        					{{/with}}
+		        				</ul>
+							</div>
+						</div>
+			        {{/if}}
 		      	</div>
 		      {{/each}}
 	    	</div>

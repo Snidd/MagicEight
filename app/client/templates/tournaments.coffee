@@ -20,9 +20,22 @@ Template.tournaments.helpers
 	showPick: (t) ->
 		if not isLoggedIn() then return false
 		if t.finished then return false
+		if getTeamCount(Meteor.userId(), t._id) > 0 then return false
 		true
+	hasTeam: (t) ->
+		getTeamCount(Meteor.userId(), t._id) > 0
+	myTeam: (t) ->
+		getTeam(Meteor.userId(), t._id)
+	leagueDescription: ->
+		 if this.leagues?.length > 0
+		 	return "in the following leagues"
+		 else
+		 	return "in no leagues."
+
 
 Template.tournaments.events
 	'click button.pick' : (event, template) ->
 		console.log "Clicked: #{this._id}"
-		Meteor.Router.to("/top8/#{this._id}");
+		Meteor.Router.to "/top8/#{this._id}"
+	'click .link.teamname' : (event, template) ->
+		Meteor.Router.to "/top8/#{this.tourneyId}"
