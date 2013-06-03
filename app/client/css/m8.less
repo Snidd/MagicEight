@@ -4,7 +4,15 @@ body {
 	padding-top: 25px;
 }
 
-a.link {
+@lighterTextColor: #bbb;
+@mediumTextColor: #757575;
+
+.smallertext {
+	color: @lighterTextColor;	
+	font-size: 11px;
+}
+
+.link {
 	cursor: pointer;
 }
 
@@ -22,7 +30,22 @@ button.dontshow {
 	display: none;
 }
 
+div.league {
+	.plus {
+		position: absolute;
+		top: 15px;
+		right: 10px;
+	}
 
+	.row.add {
+		margin-bottom: 10px;
+	}
+
+	.membercount {
+		.smallertext;
+		margin-top: -10px;
+	}
+}
 
 
 #loginModal {
@@ -51,15 +74,45 @@ button.dontshow {
 	}
 }
 
-div.tourney {
-	border: 1px solid #222;
-	padding: 7px;
-	border-radius: 2px;
 
+.shadowedbox {
 	-moz-box-shadow: 7px 7px 3px #999;
 	-webkit-box-shadow: 7px 7px 3px #999;
 	box-shadow: 7px 7px 3px #999;
-	
+	border: 1px solid #222;
+	padding: 7px;
+	border-radius: 2px;
+}
+
+div.top8 {
+	.standings {
+		margin-bottom: 15px;
+	}
+}
+
+div.displaypick {
+	&.found {
+		opacity: 1;
+	}
+
+	&.notfound {
+		opacity: 0.6;
+	}
+	.shadowedbox;
+	margin-bottom: 20px;
+	background-color: #eee;
+	.position {
+		color: #00f;
+		margin-right: 5px;
+	}
+	.name {
+		font-weight: bold;
+	}
+}
+
+div.tourney {
+	.shadowedbox;
+	position: relative;
 	margin-bottom: 20px;
 }
 div.pt {
@@ -126,18 +179,45 @@ h4.subtitle {
 	margin-bottom: 10px;
 }
 
+div.admin {
+	.row {
+		margin-bottom: 15px;
+
+		&.standings {
+			margin-bottom: 0px;
+		}
+	}
+}
+
+div.createteam {
+	padding-left: 20px;
+	.alertspan {
+		margin-left: 0px;
+	}
+}
 
 button.pick {
 	margin-top: 3px;
+	margin-bottom: 5px;
 }
 
 div.tournaments {
 	/*margin-left: 0px;*/
+	&.loading {
+		display: none;
+	}
+	.loading {
+		font-style: italic;
+		color: @lighterTextColor;
+	}
 }
 
 ul.myteams {
 	list-style-type: none;
 	margin-left: 0px;
+	.points {
+		color: @mediumTextColor;
+	}
 }
 
 ul.myteams .teamname {
@@ -168,8 +248,7 @@ div.tourney {
 	}
 
 	.timeleft {
-		color: #bbb;	
-		font-size: 11px;
+		.smallertext;
 		margin-top: -3px;
 	}
 
@@ -205,6 +284,11 @@ ul.myteams {
 		input.playerName {
 			text-align: center;
 		}
+
+		.typeahead.dropdown-menu {
+			width: 280px;
+			text-align: center;
+		}
 	}
 
 }
@@ -216,5 +300,9 @@ ul.myteams {
 
 	h1.header {
 		margin-bottom: 25px;
+	}
+
+	div.createteam {
+		padding-left: 0px;
 	}
 }

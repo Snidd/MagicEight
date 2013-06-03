@@ -16,3 +16,14 @@ Handlebars.registerHelper "timeleft", (startDate) ->
 
 Handlebars.registerHelper "nobreak", (text) ->
 	new Handlebars.SafeString(text.replaceAll(" ", "&nbsp;"));
+
+Handlebars.registerHelper "pointsHelper", (points) ->
+	if not points then return ""
+	if points is 1 then return "(1 point.)"
+	if points > 1 then return "(#{points} points.)"
+	return ""
+
+Handlebars.registerHelper "realPositionHelper", (realpos) ->
+	if realpos > 0 then return new Handlebars.SafeString("Actual position:&nbsp;<b>#{realpos}</b>")
+	return new Handlebars.SafeString("<i>Not found</i>")
+	

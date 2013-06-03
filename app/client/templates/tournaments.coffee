@@ -17,25 +17,30 @@ Template.tournaments.helpers
 		return rows
 	loggedIn: ->
 		isLoggedIn()
+	isStarted: ->
+		this.started is true
 	showPick: (t) ->
 		if not isLoggedIn() then return false
 		if t.finished then return false
+		if t.started then return false
 		if getTeamCount(Meteor.userId(), t._id) > 0 then return false
 		true
-	hasTeam: (t) ->
+	hasTeam: (t) ->		
 		getTeamCount(Meteor.userId(), t._id) > 0
 	myTeam: (t) ->
-		getTeam(Meteor.userId(), t._id)
+		t = getTeam(Meteor.userId(), t._id)
+		t.leagues = []
+		t
 	leagueDescription: ->
 		 if this.leagues?.length > 0
 		 	return "in the following leagues"
 		 else
 		 	return "in no leagues."
+	isLoading: ->
+		Session.get("loadingTournaments") is true
+
 
 
 Template.tournaments.events
 	'click button.pick' : (event, template) ->
-		console.log "Clicked: #{this._id}"
-		Meteor.Router.to "/top8/#{this._id}"
-	'click .link.teamname' : (event, template) ->
-		Meteor.Router.to "/top8/#{this.tourneyId}"
+		Meteor.Router.to(Meteor.Router.createteamPath(this._id))

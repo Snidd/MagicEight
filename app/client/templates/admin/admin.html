@@ -1,0 +1,383 @@
+<template name="admin">
+	<div class="span3 text-right nav-actions">  		
+		<p><a href="{{admincreatePath}}">Create tournament</a></p>
+  		<p><a href="/admin/players">Add Players</a></p>
+  		<p><a href="{{tournamentsPath}}">Back to Tournaments</a></p>
+  	</div>
+  	<div class="span9 admin">
+		{{#each tournament}}
+			<p><a href="{{admintournamentPath _id}}">{{name}}</a></p>
+		{{/each}}
+	</div>
+</template>
+
+<template name="admintournament">
+	<div class="span3 text-right nav-actions">  
+		<p><a href="{{adminPath}}">Admin</a></p>	
+		<p><a href="{{admincreatePath}}">Create tournament</a></p>
+  		<p><a href="/admin/players">Add Players</a></p>
+  	</div>
+  	<div class="span9 admin">
+		{{#with thisTournament}}
+			<div class="row">
+				<div class="span4">
+					Administrate <b>{{name}}</b>		
+				</div>
+			</div>
+			<div class="row">
+				<div class="span4">
+					{{#if started}}
+					<button class="btn stop" type="button"><i class="icon-stop"></i> Stop tournament</button>
+					{{else}}
+					<button class="btn start" type="button"><i class="icon-play"></i> Start tournament</button>
+					{{/if}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="span4">
+					{{#if finished}}
+					Tournament has ended
+					{{else}}
+					<button class="btn finish btn-success" type="button"><i class="icon-ok"></i> Finish tournament</button>
+					{{/if}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="span4">
+					<button class="btn remove btn-danger" type="button"><i class="icon-remove"></i> Remove tournament</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span7">
+					<p>1 row per player, starting with 1st place. In the format of Wizards web standings</p><p>"1	Wescoe, Craig [USA]	 40	64.2969%"</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span6">
+					<textarea rows="10" class="span6 playerstandings"></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span4">
+					{{#isolate}}
+					<button class="btn updatestandings btn-primary" {{#if isUpdating}}disabled{{/if}} type="button"><i class="icon-refresh"></i> Update standings</button>
+					{{/isolate}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="span4">
+					<b>Current standings:</b>
+				</div>
+			</div>
+			<div class="row standings">
+				<ol>
+			{{#each standings}}
+				<li>{{this}}</li>
+			{{/each}}
+				</ol>
+			</div>
+		{{/with}}
+	</div>	
+</template>
+
+
+<template name="admincreate">
+	<div class="span3 text-right nav-actions">  
+		<p><a href="{{adminPath}}">Admin</a></p>	
+  		<p><a href="/admin/players">Add Players</a></p>
+  	</div>
+	<div class="span9">
+        <div class="row">
+          <div class="span4">
+            <form id="createtourneyform" class="m8form">
+          	<fieldset>
+            <legend class="signup">Create a tournament</legend>
+            <div class="control-group tournamentname ok">
+              <div class="controls">
+                <input class="span4 tournamentname" type="text" placeholder="Name">
+                <span class="help-inline tournamentname"></span>
+              </div>
+            </div>
+
+            <input class="span2 startdate" type="text" placeholder="Start date">
+
+            <input class="span2 enddate" type="text" placeholder="End date">
+
+            <div class="input-prepend">
+            	{{#isolate}}
+				<span class="add-on"><img src="/img/blank.png" class="flag {{selectedCountryClass}}"/></span>
+				{{/isolate}}
+				<select class="countryCode">
+				<option>us</option>
+				<option>se</option>
+				<option>ad</option>
+				<option>ae</option>
+				<option>af</option>
+				<option>ag</option>
+				<option>ai</option>
+				<option>al</option>
+				<option>am</option>
+				<option>an</option>
+				<option>ao</option>
+				<option>ar</option>
+				<option>as</option>
+				<option>at</option>
+				<option>au</option>
+				<option>aw</option>
+				<option>az</option>
+				<option>ba</option>
+				<option>bb</option>
+				<option>bd</option>
+				<option>be</option>
+				<option>bf</option>
+				<option>bg</option>
+				<option>bh</option>
+				<option>bi</option>
+				<option>bj</option>
+				<option>bm</option>
+				<option>bn</option>
+				<option>bo</option>
+				<option>br</option>
+				<option>bs</option>
+				<option>bt</option>
+				<option>bv</option>
+				<option>bw</option>
+				<option>by</option>
+				<option>bz</option>
+				<option>ca</option>
+				<option>catalonia</option>
+				<option>cd</option>
+				<option>cf</option>
+				<option>cg</option>
+				<option>ch</option>
+				<option>ci</option>
+				<option>ck</option>
+				<option>cl</option>
+				<option>cm</option>
+				<option>cn</option>
+				<option>co</option>
+				<option>cr</option>
+				<option>cu</option>
+				<option>cv</option>
+				<option>cw</option>
+				<option>cy</option>
+				<option>cz</option>
+				<option>de</option>
+				<option>dj</option>
+				<option>dk</option>
+				<option>dm</option>
+				<option>do</option>
+				<option>dz</option>
+				<option>ec</option>
+				<option>ee</option>
+				<option>eg</option>
+				<option>eh</option>
+				<option>england</option>
+				<option>er</option>
+				<option>es</option>
+				<option>et</option>
+				<option>eu</option>
+				<option>fi</option>
+				<option>fj</option>
+				<option>fk</option>
+				<option>fm</option>
+				<option>fo</option>
+				<option>fr</option>
+				<option>ga</option>
+				<option>gb</option>
+				<option>gd</option>
+				<option>ge</option>
+				<option>gf</option>
+				<option>gg</option>
+				<option>gh</option>
+				<option>gi</option>
+				<option>gl</option>
+				<option>gm</option>
+				<option>gn</option>
+				<option>gp</option>
+				<option>gq</option>
+				<option>gr</option>
+				<option>gs</option>
+				<option>gt</option>
+				<option>gu</option>
+				<option>gw</option>
+				<option>gy</option>
+				<option>hk</option>
+				<option>hm</option>
+				<option>hn</option>
+				<option>hr</option>
+				<option>ht</option>
+				<option>hu</option>
+				<option>ic</option>
+				<option>id</option>
+				<option>ie</option>
+				<option>il</option>
+				<option>im</option>
+				<option>in</option>
+				<option>io</option>
+				<option>iq</option>
+				<option>ir</option>
+				<option>is</option>
+				<option>it</option>
+				<option>je</option>
+				<option>jm</option>
+				<option>jo</option>
+				<option>jp</option>
+				<option>ke</option>
+				<option>kg</option>
+				<option>kh</option>
+				<option>ki</option>
+				<option>km</option>
+				<option>kn</option>
+				<option>kp</option>
+				<option>kr</option>
+				<option>kurdistan</option>
+				<option>kw</option>
+				<option>ky</option>
+				<option>kz</option>
+				<option>la</option>
+				<option>lb</option>
+				<option>lc</option>
+				<option>li</option>
+				<option>lk</option>
+				<option>lr</option>
+				<option>ls</option>
+				<option>lt</option>
+				<option>lu</option>
+				<option>lv</option>
+				<option>ly</option>
+				<option>ma</option>
+				<option>mc</option>
+				<option>md</option>
+				<option>me</option>
+				<option>mg</option>
+				<option>mh</option>
+				<option>mk</option>
+				<option>ml</option>
+				<option>mm</option>
+				<option>mn</option>
+				<option>mo</option>
+				<option>mp</option>
+				<option>mq</option>
+				<option>mr</option>
+				<option>ms</option>
+				<option>mt</option>
+				<option>mu</option>
+				<option>mv</option>
+				<option>mw</option>
+				<option>mx</option>
+				<option>my</option>
+				<option>mz</option>
+				<option>na</option>
+				<option>nc</option>
+				<option>ne</option>
+				<option>nf</option>
+				<option>ng</option>
+				<option>ni</option>
+				<option>nl</option>
+				<option>no</option>
+				<option>np</option>
+				<option>nr</option>
+				<option>nu</option>
+				<option>nz</option>
+				<option>om</option>
+				<option>pa</option>
+				<option>pe</option>
+				<option>pf</option>
+				<option>pg</option>
+				<option>ph</option>
+				<option>pk</option>
+				<option>pl</option>
+				<option>pm</option>
+				<option>pn</option>
+				<option>pr</option>
+				<option>ps</option>
+				<option>pt</option>
+				<option>pw</option>
+				<option>py</option>
+				<option>qa</option>
+				<option>re</option>
+				<option>ro</option>
+				<option>rs</option>
+				<option>ru</option>
+				<option>rw</option>
+				<option>sa</option>
+				<option>sb</option>
+				<option>sc</option>
+				<option>scotland</option>
+				<option>sd</option>
+				<option>sg</option>
+				<option>sh</option>
+				<option>si</option>
+				<option>sk</option>
+				<option>sl</option>
+				<option>sm</option>
+				<option>sn</option>
+				<option>so</option>
+				<option>somaliland</option>
+				<option>sr</option>
+				<option>ss</option>
+				<option>st</option>
+				<option>sv</option>
+				<option>sx</option>
+				<option>sy</option>
+				<option>sz</option>
+				<option>tc</option>
+				<option>td</option>
+				<option>tf</option>
+				<option>tg</option>
+				<option>th</option>
+				<option>tj</option>
+				<option>tk</option>
+				<option>tl</option>
+				<option>tm</option>
+				<option>tn</option>
+				<option>to</option>
+				<option>tr</option>
+				<option>tt</option>
+				<option>tv</option>
+				<option>tw</option>
+				<option>tz</option>
+				<option>ua</option>
+				<option>ug</option>
+				<option>um</option>
+				<option>uy</option>
+				<option>uz</option>
+				<option>va</option>
+				<option>vc</option>
+				<option>ve</option>
+				<option>vg</option>
+				<option>vi</option>
+				<option>vn</option>
+				<option>vu</option>
+				<option>wales</option>
+				<option>wf</option>
+				<option>ws</option>
+				<option>ye</option>
+				<option>yt</option>
+				<option>za</option>
+				<option>zanzibar</option>
+				<option>zm</option>
+				<option>zw</option>
+			</select>
+
+			</div>
+
+			
+			<select class="type">
+				<option>gp</option>
+				<option>pt</option>
+				<option>wm</option>
+			</select>
+
+
+			<input class="span4 format" type="text" placeholder="Format">
+            
+            <button type="submit" id="submitbtn" class="btn btn-primary">Create tournament</button>
+          </fieldset>
+        </form>
+          </div>
+        </div>
+        
+      </div>
+</template>

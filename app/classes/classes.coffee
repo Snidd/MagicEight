@@ -1,5 +1,5 @@
 class @Team
-	constructor: (@name, @owner, @tourneyId) ->
+	constructor: (@name, @owner, @tourneyId, @ownerName) ->
 		@picks =
 			1: { name: "", position: 1 }
 			2: { name: "", position: 2 }
@@ -15,3 +15,19 @@ class @League
 	constructor: (@name, @password, @ownerId) ->
 		@tournaments = []
 		@members = []
+
+class @Tournament
+	constructor: (@name, @country, @startDate, @endDate, @format, @type) ->
+		@finished = false
+		@started = false
+
+
+###
+			name: "Grand Prix Bangkok"
+			startDate: new Date("2013-06-21")
+			endDate: new Date("2013-06-23")
+			format: "RTR Sealed"
+			country: "th"
+			type: "gp"
+			finished: false
+###

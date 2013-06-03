@@ -1,33 +1,30 @@
 <template name="league">
   <div class="row">
     <div class="span3 text-right nav-actions">
-      <p><a href="/tournaments">Tournaments</a></p>
+      <p><a href="/tournaments">Back</a></p>
       {{> usernav}}
     </div>
-    <div class="span9 create">
+    <div class="span9 league">
       <div class="row">
         <div class="span6">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Members</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  Snidd
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Nille
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          {{#with myLeague}}
+            <h4 class="subtitle">{{name}}</h3>
+            <div class="membercount">{{memberCount}} {{memberText}}.</div>
+          {{/with}}
         </div>
       </div>
+      <div class="row">
+        <div class="span6">
+          <p>To make your league join a tournament, just click the tournament to add it.</p>
+        </div>
+      </div>
+      {{#each tournament}}
+      <div class="row add">
+        <div class="span4">
+          <a class="btn link {{#if isInLeague}}btn-success remove{{else}}add{{/if}}">{{#if isInLeague}}<i class="icon-ok icon-white"></i>{{else}}<i class="icon-plus"></i>{{/if}} {{name}}</a>
+        </div>      
+      </div>
+      {{/each}}
     </div>
   </div>
 </template>

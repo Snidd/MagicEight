@@ -8,6 +8,12 @@
 
 @delay = (ms, func) -> setTimeout func, ms
 
+@getTournament = (tourneyId) ->
+	Tournaments.findOne({ _id: tourneyId })
+
+@getCurrentTournament = ->
+	getTournament Session.get("currentTourneyId")
+
 @getCurrentTeam = ->
 	getTeam(Meteor.userId(), Session.get("currentTourneyId"))	
 
@@ -21,3 +27,14 @@
 
 @getCurrentTeamCount = ->
 	getTeamCount(Meteor.userId(), Session.get("currentTourneyId"))
+
+@getCurrentLeague = ->
+	getLeague(Session.get("currentLeagueId"))
+
+@getLeague = (id) ->
+	Leagues.findOne
+		_id: id
+
+@addLeagueToAllUsersTeam = (userId, leagueId) ->
+	l = Leagues.findOne({ _id: leagueId })
+	Teams.update { owner: userId }, { $push: { leagues: { leagueId: leagueId, name: l.name } }}

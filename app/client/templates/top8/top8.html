@@ -1,46 +1,90 @@
+<template name="createteam">
+	<div class="row">
+	  	<div class="span3 text-right nav-actions">
+	  		<p><a href="/tournaments">Back</a></p>
+	  	</div>
+		<div class="span5 createteam">
+        	<div class="row">
+            	<form id="createteamform" class="m8form">
+          			<fieldset>
+            			<legend class="signup">Create a team</legend>
+            			<div class="control-group teamname ok">
+              				<div class="controls">
+                				<input class="span4 teamname" type="text" placeholder="Teamname">
+                				<span class="help-inline teamname">Username is already taken</span>
+              				</div>
+            			</div>
+            			<button type="submit" id="submitbtn" class="btn btn-primary">Create team</button>
+          			</fieldset>
+        		</form>
+        	</div>
+			{{#if wasError}}
+				<div class="row">
+					<div class="span5 alertspan">
+						<div class="alert alert-error">
+						  <button type="button" class="close" data-dismiss="alert">&times;</button>
+						  <strong>Error!</strong> <span id="errorMessage">{{errorMessage}}</span>
+						</div>
+					</div>				
+				</div>
+			{{/if}}
+    	</div>
+	</div>
+</template>
+
 <template name="top8">
   <div class="row">
-  	<div class="span3 text-right nav-actions">
-  		<p><a href="/tournaments">Back</a></p>
-  		{{> usernav}}
+  	<div class="span3 text-right nav-actions">  		
+		{{#if loggedIn}}
+			<p><a href="/tournaments">Back</a></p>
+			{{> usernav}}
+		{{else}}
+			{{> loginnav}}
+		{{/if}}
   	</div>
   	<div class="span9 top8">
+  		{{#with selectedTeam}}
 		<div class="row">
 			<div class="span6">
 				<h3 class="title">{{tourneyName}}</h3>
-				{{#if haveteam}}
-				<h4 class="subtitle">{{myTeamName}}</h3>
-				{{/if}}
+				<h4 class="subtitle">{{name}}</h3>
 			</div>
-		</div>
-		{{#if noteam}}
-		<div class="row">
-			<div class="span6">
-				<input class="span4 teamname" type="text" placeholder="Choose team name">
-			</div>
-		</div>
-        <div class="row">
-			<div class="span3">
-				<button class="btn btn-primary" id="saveTeamBtn">Create my team</button>
-			</div>
-		</div>
-		{{else}}
-		<div class="row">
-			{{#each pickRows}}
-			
-				{{#each picks}}
-    				{{> top8pick this}}
+		</div>		
+			{{#if allowedToMakeChanges}}
+				<div class="row">	
+				{{#each pickRows}}
+					{{#each picks}}					
+							{{> top8pick this}}
+					{{/each}}			
 				{{/each}}
+				</div>
+			{{else}}
+				<div class="row totalpoints">
+					<div class="span3">
+						Total points: <b>{{points}}</b>
+					</div>
+				</div>
+				<div class="row standings">
+					<div class="span3">
+						<a href="{{highscorePath tourneyId}}">Current standing:</a> <b>{{getStanding}}</b>
+					</div>
+				</div>
+				{{#each pickRows}}
+					{{#each picks}}					
+							{{> displayPick this}}
+					{{/each}}			
+				{{/each}}
+			{{/if}}
 			
-			{{/each}}
-			</div>
+			{{#if allowedToMakeChanges}}
 			<div class="row">
 				<div class="span3">
 					<button class="btn saveteam {{#if saving}}disabled{{/if}} btn-primary">{{#if saving}}Saving...{{else}}Save{{/if}}</button>
-				</div>
-
+				</div>	
 			</div>
-			{{#if wasError}}
+			{{/if}}			
+		{{/with}}
+		{{#if wasError}}
 			<div class="row">
 				<div class="span5">
 					<div class="alert alert-error">
@@ -49,10 +93,25 @@
 					</div>
 				</div>				
 			</div>
-			{{/if}}
 		{{/if}}
 	</div>
   </div>
+</template>
+
+<template name="displayPick">
+	<div class="row">
+		<div class="span4 displaypick {{#if pickfound}}found{{else}}notfound{{/if}}">
+			<div class="row">
+				<div class="span4"><span class="position">{{position}}.</span><span class="name">{{name}}</span></div>
+			</div>
+			<div class="row">
+				<div class="span2">{{realPositionHelper realposition}}</div>
+				{{#if pickfound}}
+				<div class="span2">Points: <b>{{points}}</b></div>
+				{{/if}}
+			</div>		
+		</div>
+	</div>
 </template>
 
 <template name="top8pick">
@@ -61,7 +120,7 @@
 		{{#isolate}}
 			{{#if currentEditing position}}
 				<button class="btn addPick id-{{position}}" type="button"><i class="icon-ok"></i></button>
-				<input type="text" class="replaceButton playerName id-{{position}}" type="text" placeholder="Name of player" value="{{name}}"/>
+				<input type="text" autocomplete="off" class="replaceButton playerName id-{{position}}" type="text" placeholder="Name of player" value="{{name}}"/>
 			{{else}}
 				<span class="add-on">{{position}}.</span>						
 				<a class="btn playerName id-{{position}} {{addButtonClass this}}" type="button">{{addButtonText this}}</a>				

@@ -1,17 +1,38 @@
+Template.displayPick.helpers
+	pickfound: ->
+		if this.realposition and this.realposition > 0 and this.points and this.points > 0 then return true
+		false
+
 Template.top8.helpers
+	getStanding: ->
+		if this.standing then this.standing else "Unknown"
+	loggedIn: ->
+		isLoggedIn()
+	selectedTeam: ->
+		Teams.findOne { _id: Session.get("currentTeamId") }
 	noteam: ->
 		getTeamCount(Meteor.userId(), Session.get("currentTourneyId")) is 0
 	haveteam: ->
 		getTeamCount(Meteor.userId(), Session.get("currentTourneyId")) > 0
 	tourneyName: ->
 		t = Tournaments.findOne
-			_id: Session.get("currentTourneyId")
+			_id: this.tourneyId
 		t.name
-	myTeamName: ->
-		t = getCurrentTeam()
-		t.name
+	tourneyStarted: ->
+		t = Tournaments.findOne
+			_id: this.tourneyId
+		if t
+			return t.started is true
+		true
+	allowedToMakeChanges: ->
+		if this.owner isnt Meteor.userId() then return false
+		t = Tournaments.findOne
+			_id: this.tourneyId
+		if t
+			return (t.started is false) and (t.finished is false) 
+		false
 	pickRows: ->
-		t = getCurrentTeam()
+		t = this
 		picksPerRow = 2
 		rows = []
 		i = 0
@@ -34,10 +55,31 @@ Template.top8.helpers
 	saving: ->
 		Session.get("saving") is true
 
+Template.top8.rendered = ->
+	Deps.autorun ->
+		Meteor.subscribe "team", Session.get("currentTeamId"), { onError: unableToSubscribe }
+
+unableToSubscribe = (error) ->
+	console.log error.details
+	Session.set("errorMessage", error.details)
+
 Template.top8pick.rendered = ->
 	i = this.find("input.playerName.id-#{this.data.position}")
 	if i 
 		i.focus()
+		debouncedFindPlayerName = _.debounce(findPlayerName, 500)
+		$("input.playerName.id-#{this.data.position}").typeahead({ source: debouncedFindPlayerName, minLenght: 2})
+
+findPlayerName = (query, promise) ->
+	Meteor.call "searchPlayer", query, (error, result) ->
+		if not error		
+			res = []
+			for player in result
+				res.push player.name
+			promise(res)
+	false
+
+##var lazyLayout = _.debounce(calculateLayout, 300);
 
 
 Template.top8pick.helpers
@@ -52,7 +94,6 @@ Template.top8pick.helpers
 
 Template.top8pick.events
 	'click .btn.playerName' : (event, template) ->
-		console.log "clicked #{this.position}"
 		Session.set("editing-#{this.position}", true)
 	'click .btn.addPick' : (event, template) ->
 		savePick template, this
@@ -67,6 +108,27 @@ savePick = (template, pick) ->
 	pick.name = playerName
 	Session.set("editing-#{pick.position}", false)
 
+Template.createteam.helpers
+	errorMessage: ->
+		Session.get("errorMessage")
+	wasError: ->
+		msg = Session.get("errorMessage")
+		msg and msg.length > 0
+
+Template.createteam.events
+	'submit #createteamform' : (event, template) ->
+		teamNameInput = template.find("input.teamname")
+		if not teamNameInput then return false
+		teamName = teamNameInput.value
+		if teamName and teamName.length > 0
+			console.log "Creating team..."
+			newTeam = new Team(teamName, Meteor.userId(), Session.get("currentTourneyId"), Meteor.user().username)
+			Teams.insert newTeam, (error, results) ->
+				if error then Session.set("errorMessage", error.reason) else Meteor.Router.to(Meteor.Router.top8Path(results))
+			return false
+		else
+			return false
+
 Template.top8.events
 	'click #saveTeamBtn' : (event, template) ->
 		teamNameInput = template.find("input.teamname")
@@ -80,7 +142,7 @@ Template.top8.events
 			return false
 	'click .btn.saveteam' : (event, template) ->
 		Session.set("saving", true)
-		t = getCurrentTeam()
+		t = this
 		picks = {}
 		for i in [1...9] by 1
 			newPosName = template.find("input.hiddenname.id-#{i}").value
@@ -98,6 +160,5 @@ Template.top8.events
 				Session.set("errorMessage", error.reason)
 
 createTeam = (teamName) ->
-	newTeam = new Team(teamName, Meteor.userId(), Session.get("currentTourneyId"))
-	Teams.insert newTeam
+	
 

@@ -1,15 +1,14 @@
 <template name="tournaments">
   <div class="row">
-  	<div class="span3 text-right nav-actions">
+  	<div class="span3 text-right nav-actions">  		
   		{{#if loggedIn}}
-  			<p><a href="/create">Create a league</a></p>
+  			{{> leaguenav}}  			
   			{{> usernav}}
   		{{else}}
   			{{> loginnav}}
   		{{/if}}
   	</div>
   	<div class="span9 tournaments">
-  		
   		{{#each tournamentRows}}
   			<div class="row">
   				{{#each tournaments}}
@@ -19,11 +18,15 @@
 		      			<div class="span2 date">{{tournamentdate startDate endDate}} <span class="format">{{nobreak format}}</span></div>
 		      		</div>        		
 		      		<div class="row">
+		      			{{#if isStarted}}
+		      			<div class="span2 timeleft">(In progress)</div>        			
+		      			{{else}}
 		      			<div class="span2 timeleft">({{timeleft startDate}})</div>        			
+		      			{{/if}}
 		      		</div>
 		      		{{#if showPick this}}
 			      		<div class="row">
-			        			<div class="span4"><button class="btn pick btn-mini btn-primary" type="button">Pick my top 8!</button></div>        			
+			        			<div class="span4"><button class="btn pick btn-mini btn-primary" type="button">Create my team!</button></div>        			
 			        	</div>
 			        {{/if}}
 			        {{#if hasTeam this}}
@@ -31,24 +34,26 @@
 							<div class="span4">
 								<ul class="myteams">
 									{{#with myTeam this}}
-		        					<li><a class="link teamname">{{name}}</a> {{leagueDescription}}</li>
+		        					<li><a href="{{top8Path _id}}">{{name}}</a> <span class="points">{{pointsHelper points}}</span></li>
 		        					<ul class="myleagues">
 		        						{{#each leagues}}
-		        						<li><a href="#">Jockes liga</a></li>
+		        						<li><a href="#">{{name}}</a></li>
 		        						{{/each}}
 		        						<li>
-		        							<button class="btn findleagues btn-mini" type="button">Find leagues</button>
+		        							<!-- <button class="btn findleagues btn-mini" type="button">Find leagues</button> -->
+
 		        						</li>
 		        					</ul>
-		        					{{/with}}
+		        					{{/with}}		        					
 		        				</ul>
 							</div>
 						</div>
 			        {{/if}}
+			        <a href="/highscore/{{_id}}/">View highscore list</a>
 		      	</div>
 		      {{/each}}
 	    	</div>
   		{{/each}}
-		</div>
+	</div>
   </div>
 </template>

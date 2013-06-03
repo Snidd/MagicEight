@@ -1,7 +1,7 @@
 <template name="loginnav">
 	<p><a class="login link">Login</a></p>
-	<p><a href="/signup">Sign up</a></p>
-	<p><a href="/tournaments">Tournaments</a></p>
+	<p><a href="{{signupPath}}">Sign up</a></p>
+	<p><a href="{{tournamentsPath}}">Tournaments</a></p>
 
 	<div id="loginModal" class="modal hide fade">
 	  <div class="modal-header">
@@ -27,4 +27,12 @@
 <template name="usernav">
 	<p><a href="/change">Change my info</a></p>
 	<p><a class="logout link">Logout</a></p>
+	{{#if isAdmin}}
+	<p><a href="{{adminPath}}">Admin</a></p>
+	{{/if}}
+</template>
+
+
+<template name="leaguenav">
+	
 </template>

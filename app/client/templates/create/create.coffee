@@ -4,7 +4,6 @@ Template.create.events
 		pw = template.find("input.password")
 		name = template.find("input.leaguename")
 		if pw and name
-			l = new League(name.value, pw.value, Meteor.userId())
-			Leagues.insert l, (error, id) ->
-				Meteor.Router.to "/league/#{id}"
+			Meteor.call "createLeague", name.value, pw.value, ->
+				console.log "test"
 		return false

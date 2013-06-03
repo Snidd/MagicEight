@@ -1,0 +1,37 @@
+<template name="highscore">
+  <div class="row">
+  	<div class="span3 text-right nav-actions">  		
+  		{{#if loggedIn}}
+        <p><a href="/tournaments">Tournaments</a></p>
+  			{{> leaguenav}}  			
+  			{{> usernav}}
+  		{{else}}
+  			{{> loginnav}}
+  		{{/if}}
+  	</div>
+  	<div class="span9 highscore">
+      {{#if drawHighscore}}
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Teamname</th>
+              <th>Points</th>
+              <th>Owner</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each team}}
+            <tr>
+              <td>{{standing}}</td>
+              <td><a href="{{top8Path _id}}">{{name}}</a></td>
+              <td>{{points}}</td>
+              <td>{{ownerName}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      {{/if}}
+  	</div>
+  </div>
+</template>
