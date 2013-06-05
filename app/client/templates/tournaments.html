@@ -9,51 +9,57 @@
   		{{/if}}
   	</div>
   	<div class="span9 tournaments">
-  		{{#each tournamentRows}}
-  			<div class="row">
-  				{{#each tournaments}}
-		      	<div class="span4 tourney {{type}}">
-		      		<div class="row">
-		      			<div class="span2 name"><img src="/img/blank.png" class="flag flag-{{country}}" alt="{{country}}" /> {{name}}</div>
-		      			<div class="span2 date">{{tournamentdate startDate endDate}} <span class="format">{{nobreak format}}</span></div>
-		      		</div>        		
-		      		<div class="row">
-		      			{{#if isStarted}}
-		      			<div class="span2 timeleft">(In progress)</div>        			
-		      			{{else}}
-		      			<div class="span2 timeleft">({{timeleft startDate}})</div>        			
-		      			{{/if}}
-		      		</div>
-		      		{{#if showPick this}}
+  		{{#if tournamentsReady}}
+	  		{{#each tournamentRows}}
+	  			<div class="row">
+	  				{{#each tournaments}}
+			      	<div class="span4 tourney {{type}}">
 			      		<div class="row">
-			        			<div class="span4"><button class="btn pick btn-mini btn-primary" type="button">Create my team!</button></div>        			
-			        	</div>
-			        {{/if}}
-			        {{#if hasTeam this}}
-						<div class="row">
-							<div class="span4">
-								<ul class="myteams">
-									{{#with myTeam this}}
-		        					<li><a href="{{top8Path _id}}">{{name}}</a> <span class="points">{{pointsHelper points}}</span></li>
-		        					<ul class="myleagues">
-		        						{{#each leagues}}
-		        						<li><a href="#">{{name}}</a></li>
-		        						{{/each}}
-		        						<li>
-		        							<!-- <button class="btn findleagues btn-mini" type="button">Find leagues</button> -->
+			      			<div class="span2 name"><img src="/img/blank.png" class="flag flag-{{country}}" alt="{{country}}" /> {{name}}</div>
+			      			<div class="span2 date">{{tournamentdate startDate endDate}} <span class="format">{{nobreak format}}</span></div>
+			      		</div>        		
+			      		<div class="row">
+			      			{{#if isStarted}}
+			      			<div class="span2 timeleft">(In progress)</div>        			
+			      			{{else}}
+			      			<div class="span2 timeleft">({{timeleft startDate}})</div>        			
+			      			{{/if}}
+			      		</div>
+			      		{{#if showPick this}}
+				      		<div class="row">
+				        			<div class="span4"><button class="btn pick btn-mini btn-primary" type="button">Create my team!</button></div>        			
+				        	</div>
+				        {{/if}}
+				        {{#if hasTeam this}}
+							<div class="row">
+								<div class="span4">
+									<ul class="myteams">
+										{{#with myTeam this}}
+			        					<li><a href="{{top8Path _id}}">{{name}}</a> <span class="points">{{pointsHelper points}}</span></li>
+			        					<ul class="myleagues">
+			        						{{#each leagues}}
+			        						<li><a href="#">{{name}}</a></li>
+			        						{{/each}}
+			        						<li>
+			        							<!-- <button class="btn findleagues btn-mini" type="button">Find leagues</button> -->
 
-		        						</li>
-		        					</ul>
-		        					{{/with}}		        					
-		        				</ul>
+			        						</li>
+			        					</ul>
+			        					{{/with}}		        					
+			        				</ul>
+								</div>
 							</div>
-						</div>
-			        {{/if}}
-			        <a href="/highscore/{{_id}}/">View highscore list</a>
-		      	</div>
-		      {{/each}}
-	    	</div>
-  		{{/each}}
+				        {{/if}}
+				        <a href="/highscore/{{_id}}/">View highscore list</a>
+			      	</div>
+			      {{/each}}
+		    	</div>
+	  		{{/each}}
+	  	{{else}}
+				<div class="row">
+					<div class="span4 loading box">Loading...</div>
+				</div>
+	  	{{/if}}
 	</div>
   </div>
 </template>

@@ -63,15 +63,36 @@ getPoints = (standingsArray, pick) ->
 	pointsForPick
 
 calculatePoints = (correctPosition, guessedPosition) ->
-	points = 50
+	if correctPosition is 1
+		75
+	else if correctPosition <= 2
+		70
+	else if correctPosition <= 4
+		65
+	else if correctPosition <= 8
+		60
+	else if correctPosition <= 16
+		40
+	else if correctPosition <= 32
+		20
+	else if correctPosition <= 64
+		10
+	else if correctPosition <= 128
+		5
+	else 0
+
+###
+calculatePoints = (correctPosition, guessedPosition) ->
+	points = 40
+	if correctPosition > 8 then guessedposition = 8
 	diff = guessedPosition - correctPosition
 	if diff > 0
 		points = points - diff
 	else
 		points = points + diff
 	if points < 0 then points = 0
-	if correctPosition <= 8 then points += 40
+	if correctPosition <= 8 then points += 50
 	points
-
+###
 ## { sort: { name: 1 }, limit:10 }
 ## Players.find({'name': {'$regex': 'a', $options: 'i'}},{sort: {name: -1}, limit: 10}).fetch();
